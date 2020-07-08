@@ -17,11 +17,12 @@ use LightSaml\SpBundle\Security\Authentication\Token\SamlSpTokenFactoryInterface
 use LightSaml\SpBundle\Security\User\AttributeMapperInterface;
 use LightSaml\SpBundle\Security\User\UserCreatorInterface;
 use LightSaml\SpBundle\Security\User\UsernameMapperInterface;
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
 use Symfony\Component\Security\Core\Role\Role;
 
-class LightsSamlSpAuthenticationProviderTest extends \PHPUnit_Framework_TestCase
+class LightsSamlSpAuthenticationProviderTest extends TestCase
 {
     public function test_constructs_with_provider_key()
     {
@@ -144,12 +145,10 @@ class LightsSamlSpAuthenticationProviderTest extends \PHPUnit_Framework_TestCase
         $this->assertSame($user, $authenticatedToken->getUser());
     }
 
-    /**
-     * @expectedException \Symfony\Component\Security\Core\Exception\AuthenticationException
-     * @expectedExceptionMessage Unable to resolve user
-     */
     public function test_throws_authentication_exception_if_user_does_not_exists_and_its_not_created()
     {
+        $this->expectExceptionMessage("Unable to resolve user");
+        $this->expectException(\Symfony\Component\Security\Core\Exception\AuthenticationException::class);
         $provider = new LightsSamlSpAuthenticationProvider(
             $providerKey = 'main',
             $userProviderMock = $this->getUserProviderMock(),
@@ -358,22 +357,18 @@ class LightsSamlSpAuthenticationProviderTest extends \PHPUnit_Framework_TestCase
         $provider->authenticate($responseToken);
     }
 
-    /**
-     * @expectedException \LogicException
-     * @expectedExceptionMessage Unsupported token
-     */
     public function test_throws_logic_exception_on_unsupported_token()
     {
+        $this->expectExceptionMessage("Unsupported token");
+        $this->expectException(\LogicException::class);
         $provider = new LightsSamlSpAuthenticationProvider('main');
         $provider->authenticate($this->getMockBuilder(TokenInterface::class)->getMock());
     }
 
-    /**
-     * @expectedException \LogicException
-     * @expectedExceptionMessage User provider must return instance of UserInterface
-     */
     public function test_throws_logic_exception_if_user_provider_returns_non_user_interface()
     {
+        $this->expectExceptionMessage("User provider must return instance of UserInterface");
+        $this->expectException(\LogicException::class);
         $provider = new LightsSamlSpAuthenticationProvider(
             $providerKey = 'main',
             $userProviderMock = $this->getUserProviderMock(),
@@ -389,12 +384,10 @@ class LightsSamlSpAuthenticationProviderTest extends \PHPUnit_Framework_TestCase
         $provider->authenticate(new SamlSpResponseToken(new Response(), $providerKey));
     }
 
-    /**
-     * @expectedException \LogicException
-     * @expectedExceptionMessage User creator must return instance of UserInterface or null
-     */
     public function test_throws_logic_exception_if_user_creator_returns_non_null_and_non_user_interface()
     {
+        $this->expectExceptionMessage("User creator must return instance of UserInterface or null");
+        $this->expectException(\LogicException::class);
         $provider = new LightsSamlSpAuthenticationProvider(
             $providerKey = 'main',
             null,
@@ -413,12 +406,10 @@ class LightsSamlSpAuthenticationProviderTest extends \PHPUnit_Framework_TestCase
         $provider->authenticate($token);
     }
 
-    /**
-     * @expectedException \LogicException
-     * @expectedExceptionMessage Attribute mapper must return array
-     */
     public function test_throws_logic_exception_if_attribute_mapper_does_not_return_array()
     {
+        $this->expectExceptionMessage("Attribute mapper must return array");
+        $this->expectException(\LogicException::class);
         $provider = new LightsSamlSpAuthenticationProvider(
             $providerKey = 'main',
             $userProviderMock = $this->getUserProviderMock(),
@@ -445,12 +436,10 @@ class LightsSamlSpAuthenticationProviderTest extends \PHPUnit_Framework_TestCase
         $provider->authenticate(new SamlSpResponseToken(new Response(), $providerKey));
     }
 
-    /**
-     * @expectedException \Symfony\Component\Security\Core\Exception\AuthenticationException
-     * @expectedExceptionMessage Unable to resolve user
-     */
     public function test_throws_authentication_exception_when_unable_to_resolve_user()
     {
+        $this->expectExceptionMessage("Unable to resolve user");
+        $this->expectException(\Symfony\Component\Security\Core\Exception\AuthenticationException::class);
         $provider = new LightsSamlSpAuthenticationProvider('main', null, false);
         $provider->authenticate(new SamlSpResponseToken(new Response(), 'main'));
     }

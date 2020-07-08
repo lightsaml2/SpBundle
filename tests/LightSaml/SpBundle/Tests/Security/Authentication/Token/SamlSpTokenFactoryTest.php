@@ -6,9 +6,10 @@ use LightSaml\Model\Protocol\Response;
 use LightSaml\SpBundle\Security\Authentication\Token\SamlSpResponseToken;
 use LightSaml\SpBundle\Security\Authentication\Token\SamlSpToken;
 use LightSaml\SpBundle\Security\Authentication\Token\SamlSpTokenFactory;
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\Security\Core\User\User;
 
-class SamlSpTokenFactoryTest extends \PHPUnit_Framework_TestCase
+class SamlSpTokenFactoryTest extends TestCase
 {
     public function test_constructs_wout_arguments()
     {

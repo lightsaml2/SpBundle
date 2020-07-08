@@ -3,10 +3,11 @@
 namespace LightSaml\SpBundle\Tests\DependencyInjection;
 
 use LightSaml\SpBundle\DependencyInjection\LightSamlSpExtension;
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBag;
 
-class LightSamlSpExtensionTest extends \PHPUnit_Framework_TestCase
+class LightSamlSpExtensionTest extends TestCase
 {
     public function test_loads_with_empty_configuration()
     {

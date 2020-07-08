@@ -13,7 +13,7 @@ class FunctionalTest extends WebTestCase
 {
     const OWN_ENTITY_ID = 'https://localhost/lightSAML/SPBundle';
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
         require_once __DIR__.'/app/AppKernel.php';

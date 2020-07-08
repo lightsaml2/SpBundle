@@ -3,9 +3,10 @@
 namespace LightSaml\SpBundle\Tests\Controller;
 
 use LightSaml\SpBundle\Controller\DefaultController;
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Response;
 
-class DefaultControllerTest extends \PHPUnit_Framework_TestCase
+class DefaultControllerTest extends TestCase
 {
     public function test_metadata_action_returns_response_from_profile()
     {

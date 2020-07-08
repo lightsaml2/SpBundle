@@ -11,8 +11,9 @@ use LightSaml\Model\Assertion\Subject;
 use LightSaml\Model\Protocol\Response;
 use LightSaml\SamlConstants;
 use LightSaml\SpBundle\Security\User\SimpleUsernameMapper;
+use PHPUnit\Framework\TestCase;
 
-class SimpleUsernameMapperTest extends \PHPUnit_Framework_TestCase
+class SimpleUsernameMapperTest extends TestCase
 {
     public function resolves_username_from_attributes_provider()
     {

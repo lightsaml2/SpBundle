@@ -5,9 +5,10 @@ namespace LightSaml\SpBundle\Tests\DependencyInjection;
 use LightSaml\ClaimTypes;
 use LightSaml\SpBundle\DependencyInjection\Configuration;
 use LightSaml\SpBundle\Security\User\SimpleUsernameMapper;
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\Config\Definition\Processor;
 
-class ConfigurationTest extends \PHPUnit_Framework_TestCase
+class ConfigurationTest extends TestCase
 {
     public function test_allow_empty_configuration()
     {

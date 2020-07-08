@@ -3,13 +3,14 @@
 namespace LightSaml\SpBundle\Tests\DependencyInjection\Security\Factory;
 
 use LightSaml\SpBundle\DependencyInjection\Security\Factory\LightSamlSpFactory;
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\Config\Definition\BooleanNode;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ScalarNode;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBag;
 
-class LightSamlSpFactoryTest extends \PHPUnit_Framework_TestCase
+class LightSamlSpFactoryTest extends TestCase
 {
     public function test_constructs_without_arguments()
     {
@@ -60,7 +61,7 @@ class LightSamlSpFactoryTest extends \PHPUnit_Framework_TestCase
         $config = $this->getDefaultConfig();
         $factory = new LightSamlSpFactory();
         $result = $factory->create($containerBuilder, 'main', $config, 'user.provider.id', $defaultEntryPoint = null);
-        $this->assertInternalType('array', $result);
+        $this->assertIsArray($result);
         $this->assertCount(3, $result);
         $this->assertContainsOnly('string', $result);
     }

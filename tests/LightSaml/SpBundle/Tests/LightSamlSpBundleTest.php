@@ -3,8 +3,9 @@
 namespace LightSaml\SpBundle\Tests;
 
 use LightSaml\SpBundle\LightSamlSpBundle;
+use PHPUnit\Framework\TestCase;
 
-class LightSamlSpBundleTest extends \PHPUnit_Framework_TestCase
+class LightSamlSpBundleTest extends TestCase
 {
     public function test_build_adds_security_extension()
     {

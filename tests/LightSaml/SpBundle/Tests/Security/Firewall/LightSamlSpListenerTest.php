@@ -6,9 +6,11 @@ use LightSaml\Context\Profile\ProfileContext;
 use LightSaml\Model\Protocol\Response;
 use LightSaml\SpBundle\Security\Authentication\Token\SamlSpToken;
 use LightSaml\SpBundle\Security\Firewall\LightSamlSpListener;
+use PHPUnit\Framework\TestCase;
+use Symfony\Component\HttpKernel\KernelInterface;
 use Symfony\Component\Security\Core\User\User;
 
-class LightSamlSpListenerTest extends \PHPUnit_Framework_TestCase
+class LightSamlSpListenerTest extends TestCase
 {
     public function test_constructs()
     {
@@ -86,6 +88,9 @@ class LightSamlSpListenerTest extends \PHPUnit_Framework_TestCase
         $eventMock->expects($this->any())
             ->method('getRequest')
             ->willReturn($requestMock);
+        $eventMock
+            ->method('getKernel')
+            ->willReturn($this->getKernelMock());
 
         $httpUtilsMock->expects($this->any())
             ->method('checkRequestPath')
@@ -204,5 +209,13 @@ class LightSamlSpListenerTest extends \PHPUnit_Framework_TestCase
     private function getAuthenticationFailureHandlerMock()
     {
         return $this->getMockBuilder(\Symfony\Component\Security\Http\Authentication\AuthenticationFailureHandlerInterface::class)->getMock();
+    }
+
+    /**
+     * @return \PHPUnit\Framework\MockObject\MockObject|KernelInterface
+     */
+    private function getKernelMock()
+    {
+        return $this->getMockBuilder(KernelInterface::class)->getMock();
     }
 }

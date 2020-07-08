@@ -3,9 +3,10 @@
 namespace LightSaml\SpBundle\Tests\Security\Authentication\Token;
 
 use LightSaml\SpBundle\Security\Authentication\Token\SamlSpToken;
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\Security\Core\User\User;
 
-class SamlSpTokenTest extends \PHPUnit_Framework_TestCase
+class SamlSpTokenTest extends TestCase
 {
     public function test_constructs_with_roles_array_provider_key_string_attributes_array_and_user()
     {

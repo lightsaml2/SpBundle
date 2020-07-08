@@ -8,8 +8,9 @@ use LightSaml\Model\Assertion\AttributeStatement;
 use LightSaml\Model\Protocol\Response;
 use LightSaml\SpBundle\Security\Authentication\Token\SamlSpResponseToken;
 use LightSaml\SpBundle\Security\User\SimpleAttributeMapper;
+use PHPUnit\Framework\TestCase;
 
-class SimpleAttributeMapperTest extends \PHPUnit_Framework_TestCase
+class SimpleAttributeMapperTest extends TestCase
 {
     public function test_get_attributes_from_single_assertion_response()
     {
