@@ -13,7 +13,7 @@ before_install:
     - echo "session.gc_probability = 0" >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini
     - composer self-update
     - composer --version
-    - if [ "$TRAVIS_PHP_VERSION" == "7.4" ]; then wget http://get.sensiolabs.org/php-cs-fixer.phar -O php-cs-fixer.phar; fi
+    - if [ "$TRAVIS_PHP_VERSION" == "7.4" ]; then wget https://cs.symfony.com/download/php-cs-fixer-v2.phar -O php-cs-fixer.phar; fi
     - if [ "$TRAVIS_PHP_VERSION" == "7.4" ]; then php php-cs-fixer.phar --version; fi
     - if [ "$TRAVIS_PHP_VERSION" == "7.4" ]; then wget https://github.com/php-coveralls/php-coveralls/releases/download/v2.2.0/php-coveralls.phar; fi
 
