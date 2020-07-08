@@ -17,10 +17,8 @@ use Symfony\Component\Security\Core\User\UserInterface;
 class SamlSpTokenFactory implements SamlSpTokenFactoryInterface
 {
     /**
-     * @param string              $providerKey
-     * @param array               $attributes
-     * @param mixed               $user
-     * @param SamlSpResponseToken $responseToken
+     * @param string $providerKey
+     * @param mixed  $user
      *
      * @return TokenInterface
      */

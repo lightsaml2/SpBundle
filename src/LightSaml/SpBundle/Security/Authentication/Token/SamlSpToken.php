@@ -19,9 +19,7 @@ class SamlSpToken extends AbstractToken
     private $providerKey;
 
     /**
-     * @param array         $roles
      * @param string        $providerKey
-     * @param array         $attributes
      * @param string|object $user
      */
     public function __construct(array $roles, $providerKey, array $attributes, $user)

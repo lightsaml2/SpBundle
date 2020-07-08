@@ -27,7 +27,6 @@ class Configuration implements ConfigurationInterface
     {
         $treeBuilder = new TreeBuilder('light_saml_sp');
 
-
         if (method_exists($treeBuilder, 'getRootNode')) {
             $root = $treeBuilder->getRootNode();
         } else {

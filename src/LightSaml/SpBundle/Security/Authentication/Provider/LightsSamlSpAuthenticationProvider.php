@@ -52,14 +52,8 @@ class LightsSamlSpAuthenticationProvider implements AuthenticationProviderInterf
     private $tokenFactory;
 
     /**
-     * @param string                           $providerKey
-     * @param UserProviderInterface|null       $userProvider
-     * @param bool                             $force
-     * @param UserCheckerInterface|null        $userChecker
-     * @param UsernameMapperInterface|null     $usernameMapper
-     * @param UserCreatorInterface|null        $userCreator
-     * @param AttributeMapperInterface|null    $attributeMapper
-     * @param SamlSpTokenFactoryInterface|null $tokenFactory
+     * @param string $providerKey
+     * @param bool   $force
      */
     public function __construct(
         $providerKey,
@@ -173,8 +167,6 @@ class LightsSamlSpAuthenticationProvider implements AuthenticationProviderInterf
     }
 
     /**
-     * @param SamlSpResponseToken $token
-     *
      * @return UserInterface
      *
      * @throws UsernameNotFoundException
@@ -197,9 +189,7 @@ class LightsSamlSpAuthenticationProvider implements AuthenticationProviderInterf
     }
 
     /**
-     * @param SamlSpResponseToken $token
-     *
-     * @return null|UserInterface
+     * @return UserInterface|null
      */
     private function createUser(SamlSpResponseToken $token)
     {
@@ -217,8 +207,6 @@ class LightsSamlSpAuthenticationProvider implements AuthenticationProviderInterf
     }
 
     /**
-     * @param SamlSpResponseToken $token
-     *
      * @return string
      */
     private function createDefaultUser(SamlSpResponseToken $token)
@@ -235,8 +223,6 @@ class LightsSamlSpAuthenticationProvider implements AuthenticationProviderInterf
     }
 
     /**
-     * @param SamlSpResponseToken $token
-     *
      * @return array
      */
     private function getAttributes(SamlSpResponseToken $token)

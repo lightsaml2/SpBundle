@@ -31,8 +31,6 @@ class SimpleUsernameMapper implements UsernameMapperInterface
     }
 
     /**
-     * @param Response $response
-     *
      * @return string|null
      */
     public function getUsername(Response $response)
@@ -48,9 +46,7 @@ class SimpleUsernameMapper implements UsernameMapperInterface
     }
 
     /**
-     * @param Assertion $assertion
-     *
-     * @return null|string
+     * @return string|null
      */
     private function getUsernameFromAssertion(Assertion $assertion)
     {

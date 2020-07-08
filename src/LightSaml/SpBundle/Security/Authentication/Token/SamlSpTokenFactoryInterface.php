@@ -16,10 +16,8 @@ use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 interface SamlSpTokenFactoryInterface
 {
     /**
-     * @param string              $providerKey
-     * @param array               $attributes
-     * @param mixed               $user
-     * @param SamlSpResponseToken $responseToken
+     * @param string $providerKey
+     * @param mixed  $user
      *
      * @return TokenInterface
      */

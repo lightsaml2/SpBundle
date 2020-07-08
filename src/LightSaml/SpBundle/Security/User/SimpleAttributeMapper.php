@@ -19,8 +19,6 @@ use LightSaml\SpBundle\Security\Authentication\Token\SamlSpResponseToken;
 class SimpleAttributeMapper implements AttributeMapperInterface
 {
     /**
-     * @param SamlSpResponseToken $token
-     *
      * @return array
      */
     public function getAttributes(SamlSpResponseToken $token)
@@ -32,9 +30,6 @@ class SimpleAttributeMapper implements AttributeMapperInterface
     }
 
     /**
-     * @param array     $attributes
-     * @param Assertion $assertion
-     *
      * @return array
      */
     private function resolveAttributesFromAssertion(array $attributes, Assertion $assertion)
@@ -45,9 +40,6 @@ class SimpleAttributeMapper implements AttributeMapperInterface
     }
 
     /**
-     * @param array              $attributes
-     * @param AttributeStatement $attributeStatement
-     *
      * @return array
      */
     private function resolveAttributesFromAttributeStatement(array $attributes, AttributeStatement $attributeStatement)
@@ -58,9 +50,6 @@ class SimpleAttributeMapper implements AttributeMapperInterface
     }
 
     /**
-     * @param array     $attributes
-     * @param Attribute $attribute
-     *
      * @return array
      */
     private function mapAttributeValues(array $attributes, Attribute $attribute)

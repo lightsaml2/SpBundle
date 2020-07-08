@@ -25,8 +25,6 @@ class LightSamlSpListener extends AbstractAuthenticationListener
     private $profile;
 
     /**
-     * @param ProfileBuilderInterface $profile
-     *
      * @return LightSamlSpListener
      */
     public function setProfile(ProfileBuilderInterface $profile)
