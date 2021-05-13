@@ -12,7 +12,6 @@
 namespace LightSaml\SpBundle\Controller;
 
 use LightSaml\Build\Container\BuildContainerInterface;
-use LightSaml\Builder\Profile\Metadata\MetadataProfileBuilder;
 use LightSaml\Builder\Profile\ProfileBuilderInterface;
 use LightSaml\Builder\Profile\WebBrowserSso\Sp\SsoSpSendAuthnRequestProfileBuilderFactory;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -24,7 +23,8 @@ class DefaultController extends AbstractController
     private $metadataProfileBuilder;
     private $requestProfileBuilderFactory;
 
-    public function __construct(BuildContainerInterface $buildContainer, ProfileBuilderInterface $metadataProfileBuilder, SsoSpSendAuthnRequestProfileBuilderFactory $requestProfileBuilderFactory) {
+    public function __construct(BuildContainerInterface $buildContainer, ProfileBuilderInterface $metadataProfileBuilder, SsoSpSendAuthnRequestProfileBuilderFactory $requestProfileBuilderFactory)
+    {
         $this->buildContainer = $buildContainer;
         $this->metadataProfileBuilder = $metadataProfileBuilder;
         $this->requestProfileBuilderFactory = $requestProfileBuilderFactory;
