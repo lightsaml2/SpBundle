@@ -4,7 +4,7 @@ services:
         parent: security.authentication.listener.abstract
         abstract: true
         calls:
-            - [setProfile, ["@ligthsaml.profile.acs"]]
+            - [setProfile, ["@lightsaml.profile.acs"]]
 
     security.authentication.provider.lightsaml_sp:
         class: LightSaml\SpBundle\Security\Authentication\Provider\LightsSamlSpAuthenticationProvider
