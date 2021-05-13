@@ -145,7 +145,7 @@ class LightsSamlSpAuthenticationProvider implements AuthenticationProviderInterf
     {
         $user = $token->getUser();
         $result = new SamlSpToken(
-            $user instanceof UserInterface ? $user->getRoles() : $token->getRoles(),
+            $user instanceof UserInterface ? $user->getRoles() : $token->getRoleNames(),
             $this->providerKey,
             $token->getAttributes(),
             $user

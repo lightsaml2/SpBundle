@@ -2,6 +2,9 @@
 
 namespace LightSaml\SpBundle\Tests\Controller;
 
+use LightSaml\Build\Container\BuildContainerInterface;
+use LightSaml\Builder\Profile\Metadata\MetadataProfileBuilder;
+use LightSaml\Builder\Profile\WebBrowserSso\Sp\SsoSpSendAuthnRequestProfileBuilderFactory;
 use LightSaml\SpBundle\Controller\DefaultController;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Response;
@@ -10,13 +13,14 @@ class DefaultControllerTest extends TestCase
 {
     public function test_metadata_action_returns_response_from_profile()
     {
-        $controller = new DefaultController();
+        $profileBuilderMock = $this->getProfileBuilderMock();
+        $buildContainer = $this->getMockBuilder(BuildContainerInterface::class)->getMock();
+        $controller = new DefaultController(
+            $buildContainer,
+            $profileBuilderMock,
+            $this->getMockBuilder(SsoSpSendAuthnRequestProfileBuilderFactory::class)->setConstructorArgs([$buildContainer])->getMock()
+        );
         $controller->setContainer($containerMock = $this->getContainerMock());
-
-        $containerMock->expects($this->any())
-            ->method('get')
-            ->with('ligthsaml.profile.metadata')
-            ->willReturn($profileBuilderMock = $this->getProfileBuilderMock());
 
         $actionMock = $this->getActionMock();
         $contextMock = $this->getContextMock();

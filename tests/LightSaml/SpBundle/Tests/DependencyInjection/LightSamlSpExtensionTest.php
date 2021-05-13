@@ -37,6 +37,6 @@ class LightSamlSpExtensionTest extends TestCase
         $extension = new LightSamlSpExtension();
         $extension->load($configs, $containerBuilder);
 
-        $this->assertTrue($containerBuilder->hasDefinition($serviceId));
+        $this->assertTrue($containerBuilder->hasDefinition($serviceId) || $containerBuilder->hasAlias($serviceId));
     }
 }

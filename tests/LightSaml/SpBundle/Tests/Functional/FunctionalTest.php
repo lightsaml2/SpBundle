@@ -65,6 +65,8 @@ class FunctionalTest extends WebTestCase
     {
         $client = static::createClient();
         $client->getContainer()->set('session', $sessionMock = $this->getMockBuilder(SessionInterface::class)->getMock());
+        $sessionMock->method('getName')
+            ->willReturn('session');
 
         $crawler = $client->request('GET', '/saml/login?idp=https://localhost/lightSAML/lightSAML-IDP');
 
@@ -97,7 +99,7 @@ class FunctionalTest extends WebTestCase
             ->willReturn($ssoState);
 
         $client = static::createClient();
-        $client->getContainer()->set('lightsaml.store.sso_state', $ssoStateStoreMock);
+        $client->getContainer()->set(SsoStateStoreInterface::class, $ssoStateStoreMock);
 
         $crawler = $client->request('GET', '/saml/sessions');
 

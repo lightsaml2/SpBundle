@@ -20,7 +20,6 @@ use LightSaml\SpBundle\Security\User\UsernameMapperInterface;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
-use Symfony\Component\Security\Core\Role\Role;
 
 class LightsSamlSpAuthenticationProviderTest extends TestCase
 {
@@ -73,7 +72,7 @@ class LightsSamlSpAuthenticationProviderTest extends TestCase
         $outToken = $provider->authenticate($inToken);
         $this->assertInstanceOf(SamlSpToken::class, $outToken);
         $this->assertEquals($user, $outToken->getUser());
-        $this->assertEquals($roles, array_map(function ($r) { return $r->getRole(); }, $outToken->getRoles()));
+        $this->assertEquals($roles, $outToken->getRoleNames());
         $this->assertEquals($providerKey, $outToken->getProviderKey());
         $this->assertEquals($attributes, $outToken->getAttributes());
     }
@@ -106,9 +105,7 @@ class LightsSamlSpAuthenticationProviderTest extends TestCase
 
         $this->assertInstanceOf(SamlSpToken::class, $authenticatedToken);
         $this->assertTrue($authenticatedToken->isAuthenticated());
-        $this->assertEquals($expectedRoles, array_map(function (Role $role) {
-            return $role->getRole();
-        }, $authenticatedToken->getRoles()));
+        $this->assertEquals($expectedRoles, $authenticatedToken->getRoleNames());
         $this->assertSame($user, $authenticatedToken->getUser());
     }
 
@@ -139,9 +136,7 @@ class LightsSamlSpAuthenticationProviderTest extends TestCase
 
         $this->assertInstanceOf(SamlSpToken::class, $authenticatedToken);
         $this->assertTrue($authenticatedToken->isAuthenticated());
-        $this->assertEquals($expectedRoles, array_map(function (Role $role) {
-            return $role->getRole();
-        }, $authenticatedToken->getRoles()));
+        $this->assertEquals($expectedRoles, $authenticatedToken->getRoleNames());
         $this->assertSame($user, $authenticatedToken->getUser());
     }
 
@@ -281,6 +276,10 @@ class LightsSamlSpAuthenticationProviderTest extends TestCase
             ->method('getRoles')
             ->willReturn(['foo', 'bar']);
 
+        $usernameMapperMock->expects($this->once())
+            ->method('getUsername')
+            ->willReturn($expectedUsername = 'foo@example.com');
+
         $userProviderMock->expects($this->once())
             ->method('loadUserByUsername')
             ->willReturn($user);
@@ -310,6 +309,10 @@ class LightsSamlSpAuthenticationProviderTest extends TestCase
         $user->expects($this->any())
             ->method('getRoles')
             ->willReturn($expectedRoles = ['foo', 'bar']);
+
+        $usernameMapperMock->expects($this->once())
+            ->method('getUsername')
+            ->willReturn($expectedUsername = 'bla@example.com');
 
         $userProviderMock->expects($this->once())
             ->method('loadUserByUsername')
@@ -346,6 +349,10 @@ class LightsSamlSpAuthenticationProviderTest extends TestCase
             ->method('getRoles')
             ->willReturn($expectedRoles = ['foo', 'bar']);
 
+        $usernameMapperMock->expects($this->once())
+            ->method('getUsername')
+            ->willReturn($expectedUsername = 'bla@example.net');
+
         $userProviderMock->expects($this->once())
             ->method('loadUserByUsername')
             ->willReturn($user);
@@ -380,6 +387,10 @@ class LightsSamlSpAuthenticationProviderTest extends TestCase
         $userProviderMock->expects($this->once())
             ->method('loadUserByUsername')
             ->willReturn(new \stdClass());
+
+        $usernameMapperMock
+            ->method('getUsername')
+            ->willReturn('foo@bla.org');
 
         $provider->authenticate(new SamlSpResponseToken(new Response(), $providerKey));
     }
@@ -419,6 +430,9 @@ class LightsSamlSpAuthenticationProviderTest extends TestCase
             null,
             $attributeMapperMock = $this->getAttributeMapperMock()
         );
+
+        $usernameMapperMock->method('getUsername')
+            ->willReturn('foo@bla.org');
 
         $user = $this->getUserMock();
         $user->expects($this->any())

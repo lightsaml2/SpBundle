@@ -1,5 +1,5 @@
 {
-    "name": "lightsaml/sp-bundle",
+    "name": "lightsaml2/sp-bundle",
     "license": "MIT",
     "type": "symfony-bundle",
     "description": "Light SAML2 SP Symfony Bundle",
@@ -19,19 +19,20 @@
         }
     },
     "require": {
-        "php": "^7.0",
-        "symfony/framework-bundle": "^3.4|^4.4|^5.0",
-        "symfony/security-bundle": "^3.4|^4.4|^5.0",
-        "lightsaml/symfony-bridge": "~1.3"
+        "php": "^7.2|^8.0",
+        "symfony/framework-bundle": "^4.4|^5.0",
+        "symfony/security-bundle": "^4.4|^5.0",
+        "lightsaml2/lightsaml": "dev-master",
+        "lightsaml2/symfony-bridge": "dev-master"
     },
     "require-dev": {
+        "ext-simplexml": "*",
         "phpunit/phpunit": "^9.0",
-        "symfony/symfony": "^3.4|^4.4|^5.0",
-        "symfony/monolog-bundle": "~2.7|~3.0|~4.0"
+        "symfony/symfony": "^4.4|^5.0",
+        "symfony/monolog-bundle": "^3.0"
     },
     "config": {
         "bin-dir": "bin"
     },
-    "prefer-stable": true,
-    "minimum-stability": "stable"
+    "prefer-stable": true
 }

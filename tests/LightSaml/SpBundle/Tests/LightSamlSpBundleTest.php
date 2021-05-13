@@ -29,7 +29,7 @@ class LightSamlSpBundleTest extends TestCase
      */
     private function getContainerBuilderMock()
     {
-        return $this->getMockBuilder(\Symfony\Component\DependencyInjection\ContainerBuilder::class)->getMock();
+        return $this->getMockBuilder(\Symfony\Component\DependencyInjection\ContainerBuilder::class)->disableOriginalConstructor()->getMock();
     }
 
     /**

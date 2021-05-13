@@ -11,14 +11,28 @@
 
 namespace LightSaml\SpBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use LightSaml\Build\Container\BuildContainerInterface;
+use LightSaml\Builder\Profile\Metadata\MetadataProfileBuilder;
+use LightSaml\Builder\Profile\ProfileBuilderInterface;
+use LightSaml\Builder\Profile\WebBrowserSso\Sp\SsoSpSendAuthnRequestProfileBuilderFactory;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 
-class DefaultController extends Controller
+class DefaultController extends AbstractController
 {
+    private $buildContainer;
+    private $metadataProfileBuilder;
+    private $requestProfileBuilderFactory;
+
+    public function __construct(BuildContainerInterface $buildContainer, ProfileBuilderInterface $metadataProfileBuilder, SsoSpSendAuthnRequestProfileBuilderFactory $requestProfileBuilderFactory) {
+        $this->buildContainer = $buildContainer;
+        $this->metadataProfileBuilder = $metadataProfileBuilder;
+        $this->requestProfileBuilderFactory = $requestProfileBuilderFactory;
+    }
+
     public function metadataAction()
     {
-        $profile = $this->get('ligthsaml.profile.metadata');
+        $profile = $this->metadataProfileBuilder;
         $context = $profile->buildContext();
         $action = $profile->buildAction();
 
@@ -29,7 +43,7 @@ class DefaultController extends Controller
 
     public function discoveryAction()
     {
-        $parties = $this->get('lightsaml.container.build')->getPartyContainer()->getIdpEntityDescriptorStore()->all();
+        $parties = $this->buildContainer->getPartyContainer()->getIdpEntityDescriptorStore()->all();
 
         if (1 == count($parties)) {
             return $this->redirect($this->generateUrl('lightsaml_sp.login', ['idp' => $parties[0]->getEntityID()]));
@@ -47,7 +61,7 @@ class DefaultController extends Controller
             return $this->redirect($this->generateUrl($this->container->getParameter('lightsaml_sp.route.discovery')));
         }
 
-        $profile = $this->get('ligthsaml.profile.login_factory')->get($idpEntityId);
+        $profile = $this->requestProfileBuilderFactory->get($idpEntityId);
         $context = $profile->buildContext();
         $action = $profile->buildAction();
 
@@ -58,7 +72,7 @@ class DefaultController extends Controller
 
     public function sessionsAction()
     {
-        $ssoState = $this->get('lightsaml.container.build')->getStoreContainer()->getSsoStateStore()->get();
+        $ssoState = $this->buildContainer->getStoreContainer()->getSsoStateStore()->get();
 
         return $this->render('@LightSamlSp/sessions.html.twig', [
             'sessions' => $ssoState->getSsoSessions(),

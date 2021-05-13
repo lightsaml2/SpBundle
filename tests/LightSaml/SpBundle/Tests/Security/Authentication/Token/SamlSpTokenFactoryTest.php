@@ -28,9 +28,9 @@ class SamlSpTokenFactoryTest extends TestCase
         );
 
         $this->assertInstanceOf(SamlSpToken::class, $token);
-        $roles = $token->getRoles();
+        $roles = $token->getRoleNames();
         $this->assertCount(1, $roles);
-        $this->assertEquals('ROLE_USER', $roles[0]->getRole());
+        $this->assertEquals('ROLE_USER', $roles[0]);
         $this->assertEquals($attributes, $token->getAttributes());
         $this->assertSame($user, $token->getUser());
     }

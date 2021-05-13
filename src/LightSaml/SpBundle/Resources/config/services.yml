@@ -3,13 +3,24 @@ parameters:
     lightsaml.route.login_check: lightsaml_sp.login_check
 
 services:
+    LightSaml\SpBundle\Security\User\SimpleUsernameMapper: ~
+
     lightsaml_sp.username_mapper.simple:
-        class: LightSaml\SpBundle\Security\User\SimpleUsernameMapper
-        arguments:
-            - []
+        alias: LightSaml\SpBundle\Security\User\SimpleUsernameMapper
+
+    LightSaml\SpBundle\Security\User\SimpleAttributeMapper: ~
 
     lightsaml_sp.attribute_mapper.simple:
-            class: LightSaml\SpBundle\Security\User\SimpleAttributeMapper
+        alias: LightSaml\SpBundle\Security\User\SimpleAttributeMapper
+
+    LightSaml\SpBundle\Security\Authentication\Token\SamlSpTokenFactory: ~
 
     lightsaml_sp.token_factory:
-        class: LightSaml\SpBundle\Security\Authentication\Token\SamlSpTokenFactory
+        alias: LightSaml\SpBundle\Security\Authentication\Token\SamlSpTokenFactory
+
+    LightSaml\SpBundle\Controller\DefaultController:
+        autowire: true
+        autoconfigure: true
+        arguments:
+            $metadataProfileBuilder: '@lightsaml.profile.metadata'
+            $requestProfileBuilderFactory: '@lightsaml.profile.login_factory'

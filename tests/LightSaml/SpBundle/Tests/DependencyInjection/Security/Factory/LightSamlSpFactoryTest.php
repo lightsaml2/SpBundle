@@ -46,8 +46,8 @@ class LightSamlSpFactoryTest extends TestCase
     public function test_configuration($configurationName, $type, $defaultValue)
     {
         $factory = new LightSamlSpFactory();
-        $treeBuilder = new TreeBuilder();
-        $factory->addConfiguration($treeBuilder->root('name'));
+        $treeBuilder = new TreeBuilder('name');
+        $factory->addConfiguration($treeBuilder->getRootNode());
         $children = $treeBuilder->buildTree()->getChildren();
         $this->assertArrayHasKey($configurationName, $children);
         $this->assertInstanceOf($type, $children['force']);

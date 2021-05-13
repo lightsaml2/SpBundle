@@ -96,7 +96,7 @@ class LightSamlSpListenerTest extends TestCase
             ->method('checkRequestPath')
             ->willReturn(true);
 
-        $listener->handle($eventMock);
+        $listener->authenticate($eventMock);
     }
 
     /**
@@ -150,25 +150,21 @@ class LightSamlSpListenerTest extends TestCase
     }
 
     /**
-     * @return \PHPUnit_Framework_MockObject_MockObject|\Symfony\Component\HttpKernel\Event\GetResponseEvent
+     * @return \PHPUnit_Framework_MockObject_MockObject|\Symfony\Component\HttpKernel\Event\RequestEvent
      */
     private function getGetResponseEventMock()
     {
-        return $this->getMockBuilder(\Symfony\Component\HttpKernel\Event\GetResponseEvent::class)
+        return $this->getMockBuilder(\Symfony\Component\HttpKernel\Event\RequestEvent::class)
             ->disableOriginalConstructor()
             ->getMock();
     }
 
     /**
-     * @return \PHPUnit_Framework_MockObject_MockObject|\Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface|\Symfony\Component\Security\Core\SecurityContextInterface
+     * @return \PHPUnit_Framework_MockObject_MockObject|\Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface
      */
     private function getTokenStorageMock()
     {
-        if (class_exists('\Symfony\Bundle\SecurityBundle\Command\UserPasswordEncoderCommand')) {
-            return $this->getMockBuilder(\Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface::class)->getMock();
-        } else { // for symfony/security-bundle <= 2.6
-            return $this->getMockBuilder(\Symfony\Component\Security\Core\SecurityContextInterface::class)->getMock();
-        }
+        return $this->getMockBuilder(\Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface::class)->getMock();
     }
 
     /**
