@@ -21,7 +21,7 @@ install:
     - COMPOSER_ROOT_VERSION=dev-master composer update --prefer-source --no-interaction $COMPOSER_FLAGS
 
 script:
-    - if [ "$TRAVIS_PHP_VERSION" == "7.4" ]; then php php-cs-fixer.phar fix --dry-run -v; fi
+    - if [ "$TRAVIS_PHP_VERSION" == "7.4" ]; then php php-cs-fixer.phar fix src --rules=@Symfony --dry-run -v; fi
     - if [ "$TRAVIS_PHP_VERSION" == "7.4" ]; then bin/phpunit --coverage-clover build/logs/clover.xml; else bin/phpunit; fi
 
 after_script:
