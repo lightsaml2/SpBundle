@@ -11,6 +11,7 @@
 
 namespace LightSaml\SpBundle\DependencyInjection;
 
+use LightSaml\SpBundle\Security\User\SimpleUsernameMapper;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader;
@@ -36,5 +37,13 @@ class LightSamlSpExtension extends Extension
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('security.yml');
         $loader->load('services.yml');
+
+        $this->configureSimpleUsernameMapper($config, $container);
+    }
+
+    private function configureSimpleUsernameMapper(array $config, ContainerBuilder $container)
+    {
+        $definition = $container->getDefinition(SimpleUsernameMapper::class);
+        $definition->replaceArgument(0, $config['username_mapper']);
     }
 }

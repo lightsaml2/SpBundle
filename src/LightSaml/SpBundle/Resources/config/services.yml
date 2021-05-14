@@ -3,7 +3,9 @@ parameters:
     lightsaml.route.login_check: lightsaml_sp.login_check
 
 services:
-    LightSaml\SpBundle\Security\User\SimpleUsernameMapper: ~
+    LightSaml\SpBundle\Security\User\SimpleUsernameMapper:
+        arguments:
+            - [] # Placeholder
 
     lightsaml_sp.username_mapper.simple:
         alias: LightSaml\SpBundle\Security\User\SimpleUsernameMapper
