@@ -58,7 +58,7 @@ class DefaultController extends AbstractController
     {
         $idpEntityId = $request->get('idp');
         if (null === $idpEntityId) {
-            return $this->redirect($this->generateUrl($this->container->getParameter('lightsaml_sp.route.discovery')));
+            return $this->redirect($this->generateUrl($this->getParameter('lightsaml_sp.route.discovery')));
         }
 
         $profile = $this->requestProfileBuilderFactory->get($idpEntityId);
