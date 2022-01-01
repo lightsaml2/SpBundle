@@ -23,7 +23,7 @@
         "symfony/framework-bundle": "^5.4|^6.0",
         "symfony/security-bundle": "^5.4|^6.0",
         "lightsaml2/lightsaml": "^2.0",
-        "lightsaml2/symfony-bridge": "^2.0"
+        "lightsaml2/symfony-bridge": "^3.0"
     },
     "require-dev": {
         "ext-simplexml": "*",
