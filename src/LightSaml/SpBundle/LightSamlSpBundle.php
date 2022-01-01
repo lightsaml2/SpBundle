@@ -11,7 +11,7 @@
 
 namespace LightSaml\SpBundle;
 
-use LightSaml\SpBundle\DependencyInjection\Security\Factory\LightSamlSpFactory;
+use LightSaml\SpBundle\DependencyInjection\Security\Factory\SamlAuthenticatorFactory;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
@@ -22,6 +22,6 @@ class LightSamlSpBundle extends Bundle
         parent::build($container);
 
         $extension = $container->getExtension('security');
-        $extension->addSecurityListenerFactory(new LightSamlSpFactory());
+        $extension->addSecurityListenerFactory(new SamlAuthenticatorFactory());
     }
 }

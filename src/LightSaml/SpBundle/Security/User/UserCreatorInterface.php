@@ -16,8 +16,5 @@ use Symfony\Component\Security\Core\User\UserInterface;
 
 interface UserCreatorInterface
 {
-    /**
-     * @return UserInterface|null
-     */
-    public function createUser(Response $response);
+    public function createUser(Response $response): ?UserInterface;
 }

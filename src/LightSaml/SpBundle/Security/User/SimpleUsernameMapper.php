@@ -20,7 +20,7 @@ class SimpleUsernameMapper implements UsernameMapperInterface
     const NAME_ID = '@name_id@';
 
     /** @var string[] */
-    private $attributes;
+    private array $attributes;
 
     /**
      * @param string[] $attributes
@@ -30,10 +30,7 @@ class SimpleUsernameMapper implements UsernameMapperInterface
         $this->attributes = $attributes;
     }
 
-    /**
-     * @return string|null
-     */
-    public function getUsername(Response $response)
+    public function getUsername(Response $response): ?string
     {
         foreach ($response->getAllAssertions() as $assertion) {
             $username = $this->getUsernameFromAssertion($assertion);
@@ -45,10 +42,7 @@ class SimpleUsernameMapper implements UsernameMapperInterface
         return null;
     }
 
-    /**
-     * @return string|null
-     */
-    private function getUsernameFromAssertion(Assertion $assertion)
+    private function getUsernameFromAssertion(Assertion $assertion): ?string
     {
         foreach ($this->attributes as $attributeName) {
             if (self::NAME_ID == $attributeName) {

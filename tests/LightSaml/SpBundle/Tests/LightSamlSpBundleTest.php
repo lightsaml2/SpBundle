@@ -19,7 +19,7 @@ class LightSamlSpBundleTest extends TestCase
 
         $extensionMock->expects($this->once())
             ->method('addSecurityListenerFactory')
-            ->with($this->isInstanceOf(\LightSaml\SpBundle\DependencyInjection\Security\Factory\LightSamlSpFactory::class));
+            ->with($this->isInstanceOf(\LightSaml\SpBundle\DependencyInjection\Security\Factory\SamlAuthenticatorFactory::class));
 
         $bundle->build($containerBuilderMock);
     }

@@ -15,8 +15,5 @@ use LightSaml\Model\Protocol\Response;
 
 interface UsernameMapperInterface
 {
-    /**
-     * @return string|null
-     */
-    public function getUsername(Response $response);
+    public function getUsername(Response $response): ?string;
 }

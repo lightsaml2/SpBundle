@@ -14,6 +14,7 @@ class ConfigurationTest extends TestCase
     {
         $emptyConfig = array();
         $this->processConfiguration($emptyConfig);
+        $this->assertTrue(true);
     }
 
     public function test_allow_set_username_mapper_scalar_array()
@@ -26,6 +27,7 @@ class ConfigurationTest extends TestCase
             ],
         ];
         $this->processConfiguration($config);
+        $this->assertTrue(true);
     }
 
     public function test_sets_default_username_mapper()

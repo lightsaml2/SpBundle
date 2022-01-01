@@ -21,7 +21,6 @@ class SimpleAttributeMapperTest extends TestCase
             'test' => ['one', 'two'],
         ]);
         $response = $this->buildResponse($assertion);
-        $samlSpResponseToken = $this->buildSamlSpResponseToken($response);
 
         $expectedAttributes = [
             'organization' => 'test',
@@ -31,7 +30,7 @@ class SimpleAttributeMapperTest extends TestCase
         ];
 
         $simpleAttributeMapper = new SimpleAttributeMapper();
-        $actualAttributes = $simpleAttributeMapper->getAttributes($samlSpResponseToken);
+        $actualAttributes = $simpleAttributeMapper->getAttributes($response);
 
         $this->assertEquals($expectedAttributes, $actualAttributes);
     }
@@ -53,8 +52,6 @@ class SimpleAttributeMapperTest extends TestCase
         ]);
         $response = $this->buildResponse($assertion, $response);
 
-        $samlSpResponseToken = $this->buildSamlSpResponseToken($response);
-
         $expectedAttributes = [
             'organization' => 'test',
             'name' => ['John', 'Doe'],
@@ -63,7 +60,7 @@ class SimpleAttributeMapperTest extends TestCase
         ];
 
         $simpleAttributeMapper = new SimpleAttributeMapper();
-        $actualAttributes = $simpleAttributeMapper->getAttributes($samlSpResponseToken);
+        $actualAttributes = $simpleAttributeMapper->getAttributes($response);
 
         $this->assertEquals($expectedAttributes, $actualAttributes);
     }
@@ -83,8 +80,6 @@ class SimpleAttributeMapperTest extends TestCase
         ], $assertion);
         $response = $this->buildResponse($assertion);
 
-        $samlSpResponseToken = $this->buildSamlSpResponseToken($response);
-
         $expectedAttributes = [
             'organization' => 'test',
             'name' => ['John', 'Doe'],
@@ -93,19 +88,9 @@ class SimpleAttributeMapperTest extends TestCase
         ];
 
         $simpleAttributeMapper = new SimpleAttributeMapper();
-        $actualAttributes = $simpleAttributeMapper->getAttributes($samlSpResponseToken);
+        $actualAttributes = $simpleAttributeMapper->getAttributes($response);
 
         $this->assertEquals($expectedAttributes, $actualAttributes);
-    }
-
-    /**
-     * @param Response $response
-     *
-     * @return \LightSaml\SpBundle\Security\Authentication\Token\SamlSpResponseToken
-     */
-    private function buildSamlSpResponseToken(Response $response)
-    {
-        return new SamlSpResponseToken($response, 'test');
     }
 
     /**

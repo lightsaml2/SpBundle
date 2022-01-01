@@ -14,45 +14,33 @@ namespace LightSaml\SpBundle\Security\User;
 use LightSaml\Model\Assertion\Assertion;
 use LightSaml\Model\Assertion\Attribute;
 use LightSaml\Model\Assertion\AttributeStatement;
+use LightSaml\Model\Protocol\Response;
 use LightSaml\SpBundle\Security\Authentication\Token\SamlSpResponseToken;
 
 class SimpleAttributeMapper implements AttributeMapperInterface
 {
-    /**
-     * @return array
-     */
-    public function getAttributes(SamlSpResponseToken $token)
+    public function getAttributes(Response $response): array
     {
-        $response = $token->getResponse();
         $assertions = $response->getAllAssertions();
 
         return array_reduce($assertions, [$this, 'resolveAttributesFromAssertion'], []);
     }
 
-    /**
-     * @return array
-     */
-    private function resolveAttributesFromAssertion(array $attributes, Assertion $assertion)
+    private function resolveAttributesFromAssertion(array $attributes, Assertion $assertion): array
     {
         $attributeStatements = $assertion->getAllAttributeStatements();
 
         return array_reduce($attributeStatements, [$this, 'resolveAttributesFromAttributeStatement'], $attributes);
     }
 
-    /**
-     * @return array
-     */
-    private function resolveAttributesFromAttributeStatement(array $attributes, AttributeStatement $attributeStatement)
+    private function resolveAttributesFromAttributeStatement(array $attributes, AttributeStatement $attributeStatement): array
     {
         $statementAttributes = $attributeStatement->getAllAttributes();
 
         return array_reduce($statementAttributes, [$this, 'mapAttributeValues'], $attributes);
     }
 
-    /**
-     * @return array
-     */
-    private function mapAttributeValues(array $attributes, Attribute $attribute)
+    private function mapAttributeValues(array $attributes, Attribute $attribute): array
     {
         $key = $attribute->getName();
         $value = $attribute->getAllAttributeValues();

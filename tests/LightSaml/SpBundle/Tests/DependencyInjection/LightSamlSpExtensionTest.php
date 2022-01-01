@@ -15,16 +15,15 @@ class LightSamlSpExtensionTest extends TestCase
         $containerBuilder = new ContainerBuilder(new ParameterBag());
         $extension = new LightSamlSpExtension();
         $extension->load($configs, $containerBuilder);
+
+        $this->assertTrue(true);
     }
 
     public function loads_service_provider()
     {
         return [
-            ['security.authentication.listener.lightsaml_sp'],
-            ['security.authentication.provider.lightsaml_sp'],
             ['lightsaml_sp.username_mapper.simple'],
             ['lightsaml_sp.attribute_mapper.simple'],
-            ['lightsaml_sp.token_factory'],
         ];
     }
     /**
