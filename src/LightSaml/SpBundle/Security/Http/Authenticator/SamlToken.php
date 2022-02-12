@@ -19,6 +19,7 @@ class SamlToken extends AbstractToken
     public function __construct(UserInterface $user, array $roles, array $attributes) {
         parent::__construct($roles);
         $this->setUser($user);
+        $this->setAttributes($attributes);
     }
 
     public function isAuthenticated() {
