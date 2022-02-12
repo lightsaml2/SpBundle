@@ -16,12 +16,9 @@ use Symfony\Component\Security\Core\User\UserInterface;
 
 class SamlToken extends AbstractToken
 {
-    private array $attributes;
-
     public function __construct(UserInterface $user, array $roles, array $attributes) {
         parent::__construct($roles);
         $this->setUser($user);
-        $this->attributes = $attributes;
     }
 
     public function isAuthenticated() {
@@ -30,14 +27,5 @@ class SamlToken extends AbstractToken
 
     public function getCredentials() {
         // deprecated
-    }
-
-    public function __serialize(): array {
-        return [ $this->attributes, parent::__serialize() ];
-    }
-
-    public function __unserialize(array $data): void {
-        [$this->attributes, $parentData] = $data;
-        parent::__unserialize($parentData);
     }
 }
