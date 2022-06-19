@@ -22,11 +22,11 @@ class SamlToken extends AbstractToken
         $this->setAttributes($attributes);
     }
 
-    public function isAuthenticated() {
+    public function isAuthenticated(): bool {
         return count($this->getRoleNames()) > 0;
     }
 
-    public function getCredentials() {
+    public function getCredentials(): mixed {
         // deprecated
     }
 }

@@ -22,6 +22,6 @@ class LightSamlSpBundle extends Bundle
         parent::build($container);
 
         $extension = $container->getExtension('security');
-        $extension->addSecurityListenerFactory(new SamlAuthenticatorFactory());
+        $extension->addAuthenticatorFactory(new SamlAuthenticatorFactory());
     }
 }

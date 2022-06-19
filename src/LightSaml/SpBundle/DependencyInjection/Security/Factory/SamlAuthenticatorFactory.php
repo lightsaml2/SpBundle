@@ -41,12 +41,12 @@ class SamlAuthenticatorFactory extends AbstractFactory implements AuthenticatorF
         return 'saml';
     }
 
-    protected function createAuthProvider(ContainerBuilder $container, $id, $config, $userProviderId)
+    protected function createAuthProvider(ContainerBuilder $container, $id, $config, $userProviderId): string
     {
-         return null;
+         return '';
     }
 
-    protected function createEntryPoint($container, $id, $config, $defaultEntryPointId)
+    protected function createEntryPoint($container, $id, $config, $defaultEntryPointId): ?string
     {
         return null;
     }

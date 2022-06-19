@@ -63,7 +63,7 @@ class SamlServiceProviderAuthenticator implements AuthenticatorInterface, Authen
         return $this->httpUtils->checkRequestPath($request, $this->checkPath);
     }
 
-    public function authenticate(Request $request) {
+    public function authenticate(Request $request): Passport {
         // Get SAML response from request
         $samlResponse = $this->getInboundSamlResponse();
 
