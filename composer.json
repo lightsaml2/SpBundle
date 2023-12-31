@@ -23,7 +23,7 @@
         "symfony/framework-bundle": "^6.4|^7.0",
         "symfony/security-bundle": "^6.4|^7.0",
         "lightsaml2/lightsaml": "^2.0",
-        "lightsaml2/symfony-bridge": "^3.0"
+        "lightsaml2/symfony-bridge": "^4.0"
     },
     "require-dev": {
         "ext-simplexml": "*",
@@ -31,7 +31,7 @@
         "symfony/symfony": "^6.4|^7.0",
         "symfony/monolog-bundle": "^3.0",
         "masterminds/html5": "^2.0",
-        "symfony/browser-kit": "^6.4"
+        "symfony/browser-kit": "^6.4|^7.0"
     },
     "config": {
         "bin-dir": "bin"
