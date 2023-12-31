@@ -15,23 +15,18 @@ use LightSaml\Build\Container\BuildContainerInterface;
 use LightSaml\Builder\Profile\ProfileBuilderInterface;
 use LightSaml\Builder\Profile\WebBrowserSso\Sp\SsoSpSendAuthnRequestProfileBuilderFactory;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class DefaultController extends AbstractController
 {
-    private $buildContainer;
-    private $metadataProfileBuilder;
-    private $requestProfileBuilderFactory;
 
-    public function __construct(BuildContainerInterface $buildContainer, ProfileBuilderInterface $metadataProfileBuilder, SsoSpSendAuthnRequestProfileBuilderFactory $requestProfileBuilderFactory)
+    public function __construct(private readonly BuildContainerInterface $buildContainer, private readonly ProfileBuilderInterface $metadataProfileBuilder, private readonly SsoSpSendAuthnRequestProfileBuilderFactory $requestProfileBuilderFactory)
     {
-        $this->buildContainer = $buildContainer;
-        $this->metadataProfileBuilder = $metadataProfileBuilder;
-        $this->requestProfileBuilderFactory = $requestProfileBuilderFactory;
     }
 
-    public function metadataAction()
-    {
+    public function metadataAction(): ?Response {
         $profile = $this->metadataProfileBuilder;
         $context = $profile->buildContext();
         $action = $profile->buildAction();
@@ -41,8 +36,7 @@ class DefaultController extends AbstractController
         return $context->getHttpResponseContext()->getResponse();
     }
 
-    public function discoveryAction()
-    {
+    public function discoveryAction(): RedirectResponse|Response {
         $parties = $this->buildContainer->getPartyContainer()->getIdpEntityDescriptorStore()->all();
 
         if (1 == count($parties)) {
@@ -54,8 +48,7 @@ class DefaultController extends AbstractController
         ]);
     }
 
-    public function loginAction(Request $request)
-    {
+    public function loginAction(Request $request): RedirectResponse|Response|null {
         $idpEntityId = $request->get('idp');
         if (null === $idpEntityId) {
             return $this->redirect($this->generateUrl($this->getParameter('lightsaml_sp.route.discovery')));
@@ -70,8 +63,7 @@ class DefaultController extends AbstractController
         return $context->getHttpResponseContext()->getResponse();
     }
 
-    public function sessionsAction()
-    {
+    public function sessionsAction(): Response {
         $ssoState = $this->buildContainer->getStoreContainer()->getSsoStateStore()->get();
 
         return $this->render('@LightSamlSp/sessions.html.twig', [

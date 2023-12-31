@@ -16,7 +16,6 @@ use Symfony\Bundle\SecurityBundle\DependencyInjection\Security\Factory\AbstractF
 use Symfony\Bundle\SecurityBundle\DependencyInjection\Security\Factory\AuthenticatorFactoryInterface;
 use Symfony\Component\DependencyInjection\ChildDefinition;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\Reference;
 
 class SamlAuthenticatorFactory extends AbstractFactory implements AuthenticatorFactoryInterface
@@ -41,20 +40,6 @@ class SamlAuthenticatorFactory extends AbstractFactory implements AuthenticatorF
         return 'saml';
     }
 
-    protected function createAuthProvider(ContainerBuilder $container, $id, $config, $userProviderId): string
-    {
-         return '';
-    }
-
-    protected function createEntryPoint($container, $id, $config, $defaultEntryPointId): ?string
-    {
-        return null;
-    }
-
-    protected function getListenerId(): string {
-        return 'security.authentication.listener.lightsaml';
-    }
-
     public function createAuthenticator(ContainerBuilder $container, string $firewallName, array $config, string $userProviderId): string {
         $authenticatorId = 'security.authenticator.lightsaml.' . $firewallName;
         $authenticator = (new ChildDefinition(SamlServiceProviderAuthenticator::class))
@@ -66,7 +51,7 @@ class SamlAuthenticatorFactory extends AbstractFactory implements AuthenticatorF
             ->replaceArgument('$successHandler', new Reference($this->createAuthenticationSuccessHandler($container, $firewallName, $config)))
             ->replaceArgument('$failureHandler', new Reference($this->createAuthenticationFailureHandler($container, $firewallName, $config)));
 
-        if(isset($config['user_creator']) && !empty($config['user_creator'])) {
+        if(!empty($config['user_creator'])) {
             $authenticator->replaceArgument('$userCreator', new Reference($config['user_creator']));
         }
 

@@ -25,8 +25,4 @@ class SamlToken extends AbstractToken
     public function isAuthenticated(): bool {
         return count($this->getRoleNames()) > 0;
     }
-
-    public function getCredentials(): mixed {
-        // deprecated
-    }
 }

@@ -22,25 +22,25 @@ class LightSamlSpExtension extends Extension
     /**
      * Loads a specific configuration.
      *
-     * @param array            $config    An array of configuration values
+     * @param array            $configs    An array of configuration values
      * @param ContainerBuilder $container A ContainerBuilder instance
      *
      * @throws \InvalidArgumentException When provided tag is not defined in this extension
      *
      * @api
      */
-    public function load(array $config, ContainerBuilder $container)
+    public function load(array $configs, ContainerBuilder $container): void
     {
         $configuration = new Configuration();
-        $config = $this->processConfiguration($configuration, $config);
+        $configs = $this->processConfiguration($configuration, $configs);
 
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services.yml');
 
-        $this->configureSimpleUsernameMapper($config, $container);
+        $this->configureSimpleUsernameMapper($configs, $container);
     }
 
-    private function configureSimpleUsernameMapper(array $config, ContainerBuilder $container)
+    private function configureSimpleUsernameMapper(array $config, ContainerBuilder $container): void
     {
         $definition = $container->getDefinition(SimpleUsernameMapper::class);
         $definition->replaceArgument(0, $config['username_mapper']);

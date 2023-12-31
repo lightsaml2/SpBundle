@@ -19,17 +19,19 @@
         }
     },
     "require": {
-        "php": "^7.4|^8.0",
-        "symfony/framework-bundle": "^5.4|^6.0",
-        "symfony/security-bundle": "^5.4|^6.0",
+        "php": "^8.1",
+        "symfony/framework-bundle": "^6.4|^7.0",
+        "symfony/security-bundle": "^6.4|^7.0",
         "lightsaml2/lightsaml": "^2.0",
         "lightsaml2/symfony-bridge": "^3.0"
     },
     "require-dev": {
         "ext-simplexml": "*",
         "phpunit/phpunit": "^9.0",
-        "symfony/symfony": "^5.4|^6.0",
-        "symfony/monolog-bundle": "^3.0"
+        "symfony/symfony": "^6.4|^7.0",
+        "symfony/monolog-bundle": "^3.0",
+        "masterminds/html5": "^2.0",
+        "symfony/browser-kit": "^6.4"
     },
     "config": {
         "bin-dir": "bin"

@@ -4,7 +4,7 @@ framework:
     router:          { resource: "%kernel.project_dir%/tests/LightSaml/SpBundle/Tests/Functional/app/routing.yml" }
     csrf_protection: ~
     session:
-        storage_id:  session.mock_storage
+        storage_factory_id: session.storage.factory.mock_file
 
 monolog:
     handlers:
@@ -24,7 +24,7 @@ security:
     firewalls:
         dummy:
             provider: dummy
-            anonymous: ~
+            security: false
 
 light_saml_symfony_bridge:
     own:

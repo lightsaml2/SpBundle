@@ -22,41 +22,15 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationSuccessHandlerI
 use Symfony\Component\Security\Http\Authenticator\AuthenticatorInterface;
 use Symfony\Component\Security\Http\Authenticator\Passport\Badge\UserBadge;
 use Symfony\Component\Security\Http\Authenticator\Passport\Passport;
-use Symfony\Component\Security\Http\Authenticator\Passport\PassportInterface;
 use Symfony\Component\Security\Http\Authenticator\Passport\SelfValidatingPassport;
 use Symfony\Component\Security\Http\EntryPoint\AuthenticationEntryPointInterface;
 use Symfony\Component\Security\Http\HttpUtils;
 
 class SamlServiceProviderAuthenticator implements AuthenticatorInterface, AuthenticationEntryPointInterface {
 
-    private string $loginPath;
-    private string $checkPath;
-
-    private UsernameMapperInterface $usernameMapper;
-    private ProfileBuilderInterface $profileBuilder;
-    private BuildContainerInterface $buildContainer;
-    private UserProviderInterface $userProvider;
-    private ?UserCreatorInterface $userCreator;
-    private AttributeMapperInterface $attributeMapper;
-    private HttpUtils $httpUtils;
-
-    private AuthenticationSuccessHandlerInterface $successHandler;
-    private AuthenticationFailureHandlerInterface $failureHandler;
-
-    public function __construct(string $loginPath, string $checkPath, UsernameMapperInterface $usernameMapper, ProfileBuilderInterface $profileBuilder, BuildContainerInterface $buildContainer,
-                                UserProviderInterface $userProvider,  AttributeMapperInterface $attributeMapper, HttpUtils $httpUtils,
-                                AuthenticationSuccessHandlerInterface $successHandler, AuthenticationFailureHandlerInterface $failureHandler, ?UserCreatorInterface $userCreator = null) {
-        $this->loginPath = $loginPath;
-        $this->checkPath = $checkPath;
-        $this->usernameMapper = $usernameMapper;
-        $this->profileBuilder = $profileBuilder;
-        $this->buildContainer = $buildContainer;
-        $this->userProvider = $userProvider;
-        $this->userCreator = $userCreator;
-        $this->attributeMapper = $attributeMapper;
-        $this->httpUtils = $httpUtils;
-        $this->successHandler = $successHandler;
-        $this->failureHandler = $failureHandler;
+    public function __construct(private readonly string $loginPath, private readonly string $checkPath, private readonly UsernameMapperInterface $usernameMapper, private readonly ProfileBuilderInterface $profileBuilder, private readonly BuildContainerInterface $buildContainer,
+                                private readonly UserProviderInterface $userProvider, private readonly AttributeMapperInterface $attributeMapper, private readonly HttpUtils $httpUtils,
+                                private readonly AuthenticationSuccessHandlerInterface $successHandler, private readonly AuthenticationFailureHandlerInterface $failureHandler, private readonly ?UserCreatorInterface $userCreator = null) {
     }
 
     public function supports(Request $request): ?bool {
@@ -89,17 +63,6 @@ class SamlServiceProviderAuthenticator implements AuthenticatorInterface, Authen
                 new SamlResponseBadge($samlResponse)
             ]
         );
-    }
-
-    /**
-     * Only for compatiblity reasons
-     *
-     * @param Passport $passport
-     * @param string $firewallName
-     * @return TokenInterface
-     */
-    public function createAuthenticatedToken(PassportInterface $passport, string $firewallName): TokenInterface {
-        return $this->createToken($passport, $firewallName);
     }
 
     /**
@@ -138,7 +101,13 @@ class SamlServiceProviderAuthenticator implements AuthenticatorInterface, Authen
             return null;
         }
 
-        return $context->getInboundMessage();
+        $message = $context->getInboundMessage();
+
+        if(!$message instanceof SamlResponse) {
+            return null;
+        }
+
+        return $message;
     }
 
     public function start(Request $request, AuthenticationException $authException = null): RedirectResponse {
