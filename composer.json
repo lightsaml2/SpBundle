@@ -22,8 +22,8 @@
         "php": "^8.1",
         "symfony/framework-bundle": "^6.4|^7.0",
         "symfony/security-bundle": "^6.4|^7.0",
-        "lightsaml2/lightsaml": "^2.0",
-        "lightsaml2/symfony-bridge": "^4.0"
+        "lightsaml2/lightsaml": "^3.0",
+        "lightsaml2/symfony-bridge": "^5.0"
     },
     "require-dev": {
         "ext-simplexml": "*",
