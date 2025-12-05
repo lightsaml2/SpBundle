@@ -17,7 +17,7 @@ use LightSaml\SamlConstants;
 
 class SimpleUsernameMapper implements UsernameMapperInterface
 {
-    const NAME_ID = '@name_id@';
+    const string NAME_ID = '@name_id@';
 
     /** @var string[] */
     private array $attributes;

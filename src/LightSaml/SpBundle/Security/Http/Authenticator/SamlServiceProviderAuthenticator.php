@@ -110,7 +110,7 @@ class SamlServiceProviderAuthenticator implements AuthenticatorInterface, Authen
         return $message;
     }
 
-    public function start(Request $request, AuthenticationException $authException = null): RedirectResponse {
+    public function start(Request $request, AuthenticationException|null $authException = null): RedirectResponse {
         $uri = $this->httpUtils->generateUri($request, $this->loginPath);
 
         $parties = $this->buildContainer->getPartyContainer()->getIdpEntityDescriptorStore()->all();

@@ -20,7 +20,7 @@ use Symfony\Component\DependencyInjection\Reference;
 
 class SamlAuthenticatorFactory extends AbstractFactory implements AuthenticatorFactoryInterface
 {
-    public const PRIORITY = -10;
+    public const int PRIORITY = -10;
 
     public function __construct() {
         $this->addOption('username_mapper', 'lightsaml_sp.username_mapper.simple');

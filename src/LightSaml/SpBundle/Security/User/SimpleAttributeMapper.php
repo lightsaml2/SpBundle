@@ -15,7 +15,6 @@ use LightSaml\Model\Assertion\Assertion;
 use LightSaml\Model\Assertion\Attribute;
 use LightSaml\Model\Assertion\AttributeStatement;
 use LightSaml\Model\Protocol\Response;
-use LightSaml\SpBundle\Security\Authentication\Token\SamlSpResponseToken;
 
 class SimpleAttributeMapper implements AttributeMapperInterface
 {

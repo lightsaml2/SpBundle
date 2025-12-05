@@ -18,6 +18,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Attribute\MapQueryParameter;
 
 class DefaultController extends AbstractController
 {
@@ -48,8 +49,7 @@ class DefaultController extends AbstractController
         ]);
     }
 
-    public function loginAction(Request $request): RedirectResponse|Response|null {
-        $idpEntityId = $request->get('idp');
+    public function loginAction(#[MapQueryParameter(name: 'idp')] string|null $idpEntityId): RedirectResponse|Response|null {
         if (null === $idpEntityId) {
             return $this->redirect($this->generateUrl($this->getParameter('lightsaml_sp.route.discovery')));
         }
